@@ -32,13 +32,13 @@ public class ScannerSender {
     }
 
     public void publish(String message, String queue_name) throws IOException, TimeoutException {
-        try (Connection connection = factory.newConnection();
-             Channel channel = connection.createChannel()) {
-            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-            channel.basicPublish(EXCHANGE_NAME, queue_name, null, message.getBytes());
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        channel.basicPublish(EXCHANGE_NAME, queue_name, null, message.getBytes());
 
 //            channel.queueDeclare(queue_name, false, false, false, null);
 //            channel.basicPublish("", queue_name, null, message.getBytes());
-        }
+
     }
 }
